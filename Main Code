@@ -1,0 +1,32 @@
+import random
+
+trials = 100000
+wins = 0
+losses = 0
+
+for i in range(trials):
+    doors = ["goat", "goat", "car"]
+    random.shuffle(doors)
+
+    userchoice = random.randint(0, 2)
+    car_index = doors.index("car")
+
+    # Monty chooses a goat door that the user didn't choose
+    monty_options = [i for i in range(3) if i != userchoice and i != car_index]
+    montychoice = random.choice(monty_options)
+
+    # Simulate switching
+    switch_options = [i for i in range(3) if i != userchoice and i != montychoice]
+    final_choice = switch_options[0]
+
+    if doors[final_choice] == "car":
+        wins += 1
+    else:
+        losses += 1
+
+    perc_win = wins/trials
+    perc_losses = losses/trials
+
+print(f"Wins after switching: {perc_win}, {wins}/{trials}") #Wins after switching should be close to 2/3
+print(f"Losses after switching: {perc_losses}, {losses}/{trials}") #Losses after switching show be close to 1/3
+
